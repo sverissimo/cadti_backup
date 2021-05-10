@@ -17,7 +17,8 @@ client.on('connect', () => {
     client.emit('userDetails', 'whatever')
 })
 client.on('a', ({ files, fields }) => {
+    console.log('fuuuuuuuuuuukkkkkkkkkkkkkkk')
     fileService.saveFile({ files, fields })
-});
+})
 
 client.on('close', () => console.log('Goodbye!'))

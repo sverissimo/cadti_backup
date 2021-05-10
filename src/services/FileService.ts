@@ -1,26 +1,24 @@
 import fs from 'fs'
+import { FolderService } from './FolderService'
 
 class FileService {
 
-    saveFile({ files, fields }): void {
-        console.log("🚀 ~ file: FileService.ts ~ line 6 ~ FileService ~ saveFile ~ files", files)
-        console.log(fields[0], typeof fields, fields, fields[0].id)
+    async saveFile({ files, fields }): Promise<any> {
 
         const
-            data = Buffer.from(files, 'base64').toString('utf-8')
-            , folder = 'd:\\tst3000_files\\'
+            data = Buffer.from(files, 'base64')
             , { filename, metadata } = fields[0] && fields[0]
             , { fieldName, empresaId } = metadata
-            //, path = folder + `${filename} - ${fieldName} códigoEmpresa ${empresaId}`
-            , path = folder + `${filename}`
-        //    , [fieldName, empresaId] = Object.values(JSON.parse(fields.metadata))
+            , folderService = new FolderService()
+            , folder = await folderService.getFolderName({ codigoEmpresa: empresaId, subfolderName: 'Procurações' })
+            , path = folder
 
-        console.log("🚀 ~ file: tst.js ~ line 19 ~ files", { fieldName, empresaId }, fields)
+        //console.log("🚀 ~ file: tst.js ~ line 19 ~ files", { fieldName, empresaId }, fields)
 
-        if (!fs.existsSync(folder))
-            fs.mkdirSync(folder)
+        if (!fs.existsSync(path))
+            fs.mkdirSync(path, { recursive: true })
 
-        fs.writeFileSync(path, data)
+        fs.writeFileSync(path + filename, data)
     }
 }
 
