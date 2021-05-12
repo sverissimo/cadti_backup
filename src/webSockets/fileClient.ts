@@ -16,9 +16,9 @@ client.on('connect', () => {
     console.log('#### Tst file backup started!! ####')
     client.emit('userDetails', 'whatever')
 })
-client.on('a', ({ files, fields }) => {
-    console.log('fuuuuuuuuuuukkkkkkkkkkkkkkk')
-    fileService.saveFile({ files, fields })
+client.on('a', async ({ files, fields }) => {
+    await fileService.saveFile({ files, fields })
+    console.log('written.')
 })
 
 client.on('close', () => console.log('Goodbye!'))

@@ -1,4 +1,5 @@
-import { EmpresaRepository } from "../repositories/EmpresaRepository";
+import { MainController } from "../controllers/MainController";
+import { FileEntity } from "../entities/FileEntity";
 
 
 interface IFolder {
@@ -6,11 +7,12 @@ interface IFolder {
     subfolderName: string
 }
 
+
 export class FolderService {
 
-    async getFolderName(info: IFolder) {
+    async getFolderName(file: FileEntity) {
         const
-            { codigoEmpresa, subfolderName } = info
+            { codigoEmpresa, subfolderName } = file
             , baseFolder = 'd:\\ARQUIVOS_CADTI'
             , razaoSocial = await this.getEmpresaName(codigoEmpresa)
             , rootFolder = `${codigoEmpresa} - ${razaoSocial}`
@@ -19,13 +21,13 @@ export class FolderService {
         return folderName
     }
 
-    async getEmpresaName(codigoEmpresa: number) {
+    async getEmpresaName(codigoEmpresa: number): Promise<any> {
         console.log("🚀 ~ file: EmpresaService.ts ~ line 9 ~ EmpresaService ~ getEmpresaName ~ codigoEmpresa", codigoEmpresa)
         const
-            empresaRepository = new EmpresaRepository()
-            , empresa = await empresaRepository.getEmpresaName(codigoEmpresa)
+            controller = new MainController()
+            , { razao_social } = await controller.getEmpresa(codigoEmpresa)
 
-        return empresa?.razao_social
+        return razao_social
     }
 
     getVeiculoPlate?(veiculoId: number) {

@@ -1,16 +1,18 @@
 import fs from 'fs'
+import { FileEntity } from '../entities/FileEntity'
 import { FolderService } from './FolderService'
 
 class FileService {
 
-    async saveFile({ files, fields }): Promise<any> {
+    async saveFile({ files, fields }) {
 
         const
             data = Buffer.from(files, 'base64')
             , { filename, metadata } = fields[0] && fields[0]
             , { fieldName, empresaId } = metadata
+            , file = new FileEntity(empresaId, fieldName)
             , folderService = new FolderService()
-            , folder = await folderService.getFolderName({ codigoEmpresa: empresaId, subfolderName: 'Procurações' })
+            , folder = await folderService.getFolderName(file)
             , path = folder
 
         //console.log("🚀 ~ file: tst.js ~ line 19 ~ files", { fieldName, empresaId }, fields)

@@ -12,4 +12,20 @@ export class FileEntity implements IFile {
     codigoEmpresa: number;
     tempFile: boolean;
     subfolderName: string;
+
+    constructor(codigoEmpresa: number, fieldName: string) {
+        this.fieldName = fieldName
+        this.codigoEmpresa = codigoEmpresa
+        this.setSubfolder()
+    }
+
+    setSubfolder() {
+        switch (this.fieldName) {
+            case 'procuracao':
+                this.subfolderName = 'Procurações'
+                break;
+            default: return ''
+        }
+
+    }
 }

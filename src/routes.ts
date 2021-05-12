@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { EmpresaController } from './controllers/EmpresaController'
+import { MainController } from './controllers/MainController'
 
 const routes = Router()
-const empresaController = new EmpresaController()
+const controller = new MainController()
 
-routes.get('/', empresaController.tst)
-routes.get('/empresa/:codigoEmpresa', empresaController.getEmpresaName)
+//routes.get('/', empresaController.tst)
+//routes.get('/empresa/:codigoEmpresa', empresaController.getEmpresaName)
 
 export default routes
