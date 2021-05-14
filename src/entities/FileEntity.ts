@@ -1,31 +1,28 @@
-interface IFile {
+import { IMetadata } from "./IFileMetadata";
+
+export class FileEntity {
     filename: string
     fieldName: string;
     codigoEmpresa: number;
-    tempFile: boolean;
-    subfolderName: string;
-}
-
-export class FileEntity implements IFile {
-    filename: string
-    fieldName: string;
-    codigoEmpresa: number;
+    razaoSocial: string;
     tempFile: boolean;
     subfolderName: string;
 
-    constructor(codigoEmpresa: number, fieldName: string) {
+    constructor(metadata: IMetadata) {
+        const { fieldName, razaoSocial, empresaId: codigoEmpresa } = metadata
+
         this.fieldName = fieldName
         this.codigoEmpresa = codigoEmpresa
-        this.setSubfolder()
+        this.razaoSocial = razaoSocial
+        //this.setSubfolder()
     }
 
-    setSubfolder() {
+    /* setSubfolder() {
         switch (this.fieldName) {
             case 'procuracao':
                 this.subfolderName = 'Procurações'
                 break;
             default: return ''
         }
-
-    }
+    } */
 }

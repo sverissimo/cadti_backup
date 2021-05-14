@@ -1,31 +1,25 @@
-import { MainController } from "../controllers/MainController";
 import { FileEntity } from "../entities/FileEntity";
 
 
 export class FolderService {
 
-    async getFolderName(file: FileEntity) {
+    getFolderName(file: FileEntity): string {
         const
-            { codigoEmpresa, subfolderName } = file
+            { codigoEmpresa, razaoSocial: razaoSocialRaw, subfolderName } = file
             , baseFolder = 'd:\\ARQUIVOS_CADTI'
-            , razaoSocialRaw = await this.getEmpresaName(codigoEmpresa)
-            , razaoSocial = razaoSocialRaw.replace('\/', ' ')
+            , razaoSocial = this.sanitize(razaoSocialRaw)
             , rootFolder = `${codigoEmpresa} - ${razaoSocial}`
             , folderName = `${baseFolder}\\${rootFolder}\\${subfolderName}\\`
 
         return folderName
     }
 
-    async getEmpresaName(codigoEmpresa: number): Promise<any> {
-        const
-            controller = new MainController()
-            , { razao_social } = await controller.getEmpresa(codigoEmpresa)
-
-        return razao_social
+    sanitize(razaoSocialRaw: any) {
+        const razaoSocial = razaoSocialRaw
+            .replace('\/', ' ')
+            .replace('S.A.', 'SA')
+            .replace('S/A.', 'SA')
+            .replace('LTDA.', 'LTDA')
+        return razaoSocial
     }
-
-    /* getVeiculoPlate?(veiculoId: number) {
-
-    } */
-
 }

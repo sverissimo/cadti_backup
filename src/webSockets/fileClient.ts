@@ -16,9 +16,10 @@ client.on('connect', () => {
     console.log('#### Tst file backup started!! ####')
     client.emit('userDetails', 'whatever')
 })
-client.on('a', async ({ files, fields }) => {
-    await fileService.saveFile({ files, fields })
+
+client.on('a', ({ files, fields }: { files: Array<string>, fields: any }) => {
+    fileService.saveFile({ files, fields })
     console.log('written.')
 })
 
-client.on('close', () => console.log('Goodbye!'))
+client.on('close', () => console.log('Warning: o serviço de backup para a máquina local da Seinfra foi desconectado.'))
