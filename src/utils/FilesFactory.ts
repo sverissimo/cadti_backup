@@ -23,6 +23,14 @@ export class FileFactory {
         switch (fieldName) {
             case 'procuracao':
                 return 'Procurações'
+            case 'contratoSocial':
+                return 'Contrato Social'
+            case 'apoliceDoc':
+                return 'Apólice'
+            case 'altContratoDoc':
+                return 'Alteração de contrato social'
+            case 'crc':
+                return 'CRC'
             default: return ''
         }
     }

@@ -1,4 +1,4 @@
-import fs from 'fs'
+import { FileRepository } from '../repositories/FilesRepository'
 import { FileFactory } from '../utils/FilesFactory'
 import { FolderService } from './FolderService'
 
@@ -17,11 +17,8 @@ class FileService {
                 , path = folder
             i++
 
-            //console.log("🚀 ~ file: FileService.js ~ line 21 ~ metadata", { folder, metadata })
-            if (!fs.existsSync(path))
-                fs.mkdirSync(path, { recursive: true })
-
-            fs.writeFileSync(path + filename, data)
+            const fileRepository = new FileRepository()
+            fileRepository.saveToDisk({ path, filename, data })
         }
     }
 }
