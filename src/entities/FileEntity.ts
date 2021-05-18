@@ -5,8 +5,10 @@ export class FileEntity {
     fieldName: string;
     codigoEmpresa: number;
     razaoSocial: string;
+    md5: string;
     tempFile: boolean;
     subfolderName: string;
+    metadata: IMetadata;
 
     constructor(metadata: IMetadata) {
         const { fieldName, razaoSocial, empresaId: codigoEmpresa } = metadata
@@ -14,15 +16,5 @@ export class FileEntity {
         this.fieldName = fieldName
         this.codigoEmpresa = codigoEmpresa
         this.razaoSocial = razaoSocial
-        //this.setSubfolder()
     }
-
-    /* setSubfolder() {
-        switch (this.fieldName) {
-            case 'procuracao':
-                this.subfolderName = 'Procurações'
-                break;
-            default: return ''
-        }
-    } */
 }

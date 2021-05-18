@@ -1,6 +1,8 @@
 import webSocketClient from 'socket.io-client'
 import { FileService } from '../services/FileService'
 import dotenv from 'dotenv'
+import { IMetadata } from '../entities/IFileMetadata'
+import { FileEntity } from '../entities/FileEntity'
 
 
 let client: any
@@ -17,9 +19,15 @@ client.on('connect', () => {
     client.emit('userDetails', 'whatever')
 })
 
-client.on('a', ({ files, fields }: { files: Array<string>, fields: any }) => {
-    fileService.saveFile({ files, fields })
+client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
+    fileService.saveTempFile({ files, fields })
     console.log('written.')
 })
+
+client.on('permanentBackup', (files: Array<FileEntity>) => {
+    fileService.savePermanentFile(files)
+    console.log('stored.')
+})
+
 
 client.on('close', () => console.log('Warning: o serviço de backup para a máquina local da Seinfra foi desconectado.'))
