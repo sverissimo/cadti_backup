@@ -1,6 +1,7 @@
 import { IMetadata } from "./IFileMetadata";
 
 export class FileEntity {
+    id: string;
     filename: string
     fieldName: string;
     codigoEmpresa: number;
@@ -10,9 +11,10 @@ export class FileEntity {
     subfolderName: string;
     metadata: IMetadata;
 
-    constructor(metadata: IMetadata) {
+    constructor(filename: string, metadata: IMetadata) {
         const { fieldName, razaoSocial, empresaId: codigoEmpresa } = metadata
 
+        this.filename = filename
         this.fieldName = fieldName
         this.codigoEmpresa = codigoEmpresa
         this.razaoSocial = razaoSocial

@@ -15,14 +15,14 @@ if (!client)
     client = webSocketClient('ws://localhost:3001', { extraHeaders: { 'Authorization': process.env.AUTH } })
 
 client.on('connect', () => {
-    console.log('#### Tst file backup started!! ####')
+    console.log('#### CadTI file backup started!! ####')
     client.emit('userDetails', 'whatever')
 })
 
-client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
+/* client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
     fileService.saveTempFile({ files, fields })
     console.log('written.')
-})
+}) */
 
 client.on('permanentBackup', (files: Array<FileEntity>) => {
     fileService.savePermanentFile(files)

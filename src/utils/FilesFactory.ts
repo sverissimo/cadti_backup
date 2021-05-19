@@ -4,10 +4,10 @@ import { IMetadata } from "../entities/IFileMetadata";
 
 export class FileFactory {
 
-    create(metadata: IMetadata) {
+    create(filename: string, metadata: IMetadata) {
         console.log("🚀 ~ file: FilesFactory.ts ~ line 8 ~ FileFactory ~ create ~ metadata", metadata);
         const
-            file = new FileEntity(metadata)
+            file = new FileEntity(filename, metadata)
             , subfolderName = this.setSubfolder(metadata)
 
         file.subfolderName = subfolderName
