@@ -14,11 +14,13 @@ class FileRepository {
         const
             //            , md5 = 'c18faf1bdee9dec114a8e19b37841d66'
             requestOptions = {
-                hostname: '200.198.42.167'
+                //hostname: '200.198.42.167'
+                host: 'localhost'
+                , port: 3001
                 , path: `/api/mongoDownload?id=${id}&collection=empresaDocs`
                 , method: 'GET'
                 , headers: {
-                    Authorization: process.env.AUTH
+                    Authorization: process.env.AUTH || 'mengo'
                 }
             }
         //Cria stream gravável e obtém os dados binários do arquivo para salvar.
@@ -27,13 +29,14 @@ class FileRepository {
             if (!fs.existsSync(folder))
                 fs.mkdirSync(folder, { recursive: true })
 
+            console.log("🚀 ~ file: FilesRepository.ts ~ line 34 ~ FileRepository ~ getDataFromDBAndSave ~ filename", filename)
             const fileStream = fs.createWriteStream(folder + filename)
             http.get(requestOptions, res => {
                 res.pipe(fileStream)
                 fileStream.on('finish', () => fileStream.close())
             })
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
         }
 
     }

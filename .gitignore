@@ -4,4 +4,7 @@ node_modules
 .vscode
 .env
 *.docx
+*.xls
 *.xlsx
+*.csv
+package-lock.json
