@@ -25,16 +25,19 @@ class FileService {
      } */
 
     savePermanentFile(files: Array<FileEntity>) {
+        console.log("🚀 ~ file: FileService.ts ~ line 28 ~ FileService ~ savePermanentFile ~ files", files)
 
         for (let f of files) {
+            console.log("🚀 ~ file: FileService.ts ~ line 30 ~ FileService ~ savePermanentFile ~ f", f)
             const
                 { id, filename, metadata } = f
+                , { placa } = metadata
 
                 , file = new FileFactory().create(filename, metadata)
                 , folder = new FolderService().getFolderName(file)
                 , fileRepository = new FileRepository()
 
-            fileRepository.getDataFromDBAndSave(id, folder, filename)
+            fileRepository.getDataFromDBAndSave(id, folder, filename, placa)
             //fileRepository.saveToDisk({ folder, data })
         }
     }

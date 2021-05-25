@@ -26,9 +26,9 @@ export class FileFactory {
             case 'contratoSocial':
                 return 'Contrato Social'
             case 'apoliceDoc':
-                return 'Apólice'
+                return 'Apólices'
             case 'altContratoDoc':
-                return 'Alteração de contrato social'
+                return 'Alterações de contrato social'
             case 'crc':
                 return 'CRC'
             default: return ''

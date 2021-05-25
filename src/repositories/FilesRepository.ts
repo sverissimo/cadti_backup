@@ -9,18 +9,22 @@ interface IDataToSave {
 
 class FileRepository {
 
-    async getDataFromDBAndSave(id: string, folder: string, filename: string) {
+    async getDataFromDBAndSave(id: string, folder: string, filename: string, placa: string) {
+        let collection: string
+        if (placa)
+            collection = 'vehicleDocs'
+        else
+            collection = 'empresaDocs'
 
         const
-            //            , md5 = 'c18faf1bdee9dec114a8e19b37841d66'
             requestOptions = {
-                //hostname: '200.198.42.167'
-                host: 'localhost'
-                , port: 3001
-                , path: `/api/mongoDownload?id=${id}&collection=empresaDocs`
+                host: '200.198.42.167'
+                //host: 'localhost'
+                //, port: 3001
+                , path: `/api/mongoDownload?id=${id}&collection=${collection}`
                 , method: 'GET'
                 , headers: {
-                    Authorization: process.env.AUTH || 'mengo'
+                    Authorization: process.env.AUTH
                 }
             }
         //Cria stream gravável e obtém os dados binários do arquivo para salvar.
@@ -29,7 +33,7 @@ class FileRepository {
             if (!fs.existsSync(folder))
                 fs.mkdirSync(folder, { recursive: true })
 
-            console.log("🚀 ~ file: FilesRepository.ts ~ line 34 ~ FileRepository ~ getDataFromDBAndSave ~ filename", filename)
+            console.log("🚀 ~ file: FilesRepository.ts ~ line 32 ~ FileRepository ~ getDataFromDBAndSave ~ id", id)
             const fileStream = fs.createWriteStream(folder + filename)
             http.get(requestOptions, res => {
                 res.pipe(fileStream)
@@ -38,7 +42,6 @@ class FileRepository {
         } catch (error) {
             console.log(error)
         }
-
     }
 
     /*  saveToDisk({ path, data }: IDataToSave) {

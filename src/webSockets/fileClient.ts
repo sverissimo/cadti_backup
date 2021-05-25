@@ -12,7 +12,7 @@ if (!process.env.AUTH)
     dotenv.config()
 
 if (!client)
-    client = webSocketClient('ws://localhost:3001', { extraHeaders: { 'Authorization': process.env.AUTH } })
+    client = webSocketClient('ws://200.198.42.167', { extraHeaders: { 'Authorization': process.env.AUTH } })
 
 client.on('connect', () => {
     console.log('#### CadTI file backup started!! ####')
@@ -25,6 +25,7 @@ client.on('connect', () => {
 }) */
 
 client.on('permanentBackup', (files: Array<FileEntity>) => {
+    console.log("🚀 ~ file: fileClient.ts ~ line 29 ~ client.on ~ files", files)
     fileService.savePermanentFile(files)
     console.log('stored.')
 })
