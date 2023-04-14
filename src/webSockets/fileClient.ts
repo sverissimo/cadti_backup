@@ -13,6 +13,7 @@ if (!process.env.AUTH)
 
 if (!client)
     client = webSocketClient('ws://200.198.42.167', { extraHeaders: { 'Authorization': process.env.AUTH } })
+//client = webSocketClient('ws://localhost:3001', { extraHeaders: { 'Authorization': process.env.AUTH } })
 
 client.on('connect', () => {
     console.log('#### CadTI file backup started!! ####')

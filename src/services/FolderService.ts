@@ -1,19 +1,15 @@
 import { FileEntity } from "../entities/FileEntity";
-import dotenv from 'dotenv'
-
-
-if (!process.env.HOME_PATH)
-    dotenv.config()
+import { env } from "../config/env";
 
 export class FolderService {
 
     getFolderName(file: FileEntity): string {
-        const
-            { codigoEmpresa, razaoSocial: razaoSocialRaw, subfolderName } = file
-            , baseFolder = process.env.HOME_PATH || 'd:\\ARQUIVOS_CADTI'
-            , razaoSocial = this.sanitize(razaoSocialRaw)
-            , rootFolder = `${codigoEmpresa} - ${razaoSocial}`
-            , folderName = `${baseFolder}\\${rootFolder}\\${subfolderName}\\`
+        console.log("🚀 ~ file: FolderService.ts:8 ~ FolderService ~ getFolderName ~ file:", file)
+        const { codigoEmpresa, razaoSocial: razaoSocialRaw, subfolderName } = file
+        const baseFolder = env.BACKUP_FOLDER
+        const razaoSocial = this.sanitize(razaoSocialRaw)
+        const rootFolder = `${codigoEmpresa} - ${razaoSocial}`
+        const folderName = `${baseFolder}/${rootFolder}/${subfolderName}/`
 
         return folderName
     }
