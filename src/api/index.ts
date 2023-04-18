@@ -26,13 +26,16 @@ export const saveFile = (filePath, options) => {
 
     const path = `${baseUrl}?id=${id}&collection=${collection}`
     const requestOptions = { ...defaultOptions, path }
-    console.log("🚀 ~ file: index.ts:28 ~ saveFile ~ requestOptions:", requestOptions)
 
     try {
-        const file = fs.createWriteStream(filePath)
+        const networkFile = fs.createWriteStream(`${env.BACKUP_FOLDER}\\${filePath}`)
+        const localFile = fs.createWriteStream(`${env.BACKUP_FOLDER_LOCAL}\\${filePath}`)
         protocol.get(requestOptions, res => {
-            res.pipe(file)
-            file.on('finish', () => file.close())
+            res.pipe(networkFile)
+            res.pipe(localFile)
+            networkFile.on('finish', () => networkFile.close())
+            localFile.on('finish', () => localFile.close())
+
         })
         return '### File saved successfully.'
 

@@ -1,4 +1,3 @@
-import { env } from './config/env'
 import { FileService } from './services/FileService'
 
 const file = {

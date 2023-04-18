@@ -8,17 +8,18 @@ const keys = [
     'NODE_ENV',
     'HOST',
     'AUTH',
+    'WEBSOCKET_HOST',
     'BACKUP_FOLDER',
-    'BACKUP_FOLDER_TST',
+    'BACKUP_FOLDER_LOCAL',
 ]
-
 
 interface Environment {
     NODE_ENV: string
     AUTH: string
     HOST: string
+    WEBSOCKET_HOST: string
     BACKUP_FOLDER: string
-    BACKUP_FOLDER_TST: string
+    BACKUP_FOLDER_LOCAL: string
 }
 
 export const env: Environment = keys
@@ -26,5 +27,3 @@ export const env: Environment = keys
     .reduce((acc, key, i) => {
         return Object.assign(acc, { [keys[i]]: process.env[key] })
     }, {} as Environment)
-
-console.log("🚀 ~ file: env.ts:14 ~ keys:", env)

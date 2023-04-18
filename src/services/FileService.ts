@@ -6,8 +6,6 @@ import { FolderService } from './FolderService'
 class FileService {
 
     savePermanentFile(files: Partial<FileEntity>[]) {
-        console.log("🚀 ~ file: FileService.ts ~ line 28 ~ FileService ~ savePermanentFile ~ files", files)
-
         for (let f of files) {
             const { id, filename, metadata } = f
             const { placa } = metadata
@@ -16,7 +14,6 @@ class FileService {
             const fileRepository = new FileRepository()
 
             fileRepository.getDataFromDBAndSave(id, folder, filename, placa)
-            //fileRepository.saveToDisk({ folder, data })
         }
     }
 }
