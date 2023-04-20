@@ -5,15 +5,18 @@ import { FolderService } from './FolderService'
 
 class FileService {
 
-    savePermanentFile(files: Partial<FileEntity>[]) {
-        for (let f of files) {
+    saveFilesByID(files: Partial<FileEntity>[]) {
+        console.log("🚀 ~ file: FileService.ts:9 ~ FileService ~ saveFilesByID ~ files:", files)
+        for (const f of files) {
             const { id, filename, metadata } = f
             const { placa } = metadata
+            const collection: string = placa ? 'vehicleDocs' : 'empresaDocs'
             const file = new FileFactory().create(filename, metadata)
-            const folder = new FolderService().getFolderName(file)
-            const fileRepository = new FileRepository()
+            const { localFolder, networkFolder } = FolderService.getFolderName(file)
 
-            fileRepository.getDataFromDBAndSave(id, folder, filename, placa)
+            FolderService.createFolders(localFolder, networkFolder)
+
+            new FileRepository().getDataFromDBAndSave({ id, localFolder, networkFolder, filename, collection })
         }
     }
 }

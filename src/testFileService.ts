@@ -20,7 +20,7 @@ const file = {
 }
 
 const run = async () => {
-    new FileService().savePermanentFile([file])
+    new FileService().saveFilesByID([file])
 }
 
 run()
