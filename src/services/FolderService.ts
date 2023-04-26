@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { env } from '../config/env';
-import { FileEntity } from "../entities/FileEntity";
+import { FileMetadata } from '../entities/FileMetadata';
 
 type FolderNames = {
     localFolder: string
@@ -9,13 +9,13 @@ type FolderNames = {
 
 export class FolderService {
 
-    static getFolderName(file: FileEntity): FolderNames {
-        const { codigoEmpresa, razaoSocial: razaoSocialRaw, subfolderName } = file
+    static getFolderName(metadata: Partial<FileMetadata>): FolderNames {
+        const { empresaId: codigoEmpresa, razaoSocial: razaoSocialRaw } = metadata
+        const subfolderName = this.getSubFolder(metadata)
         const razaoSocial = this.sanitize(razaoSocialRaw)
         const rootFolder = `${codigoEmpresa} - ${razaoSocial}`
-        const folderName = `${rootFolder}/${subfolderName}/`
-        const networkFolder = `${env.BACKUP_FOLDER}\\${folderName}`
-        const localFolder = `${env.BACKUP_FOLDER_LOCAL}\\${folderName}`
+        const networkFolder = `${env.BACKUP_FOLDER}/${rootFolder}/${subfolderName}`
+        const localFolder = `${env.BACKUP_FOLDER_LOCAL}\\${rootFolder}\\${subfolderName}`
         return { localFolder, networkFolder }
     }
 
@@ -37,6 +37,27 @@ export class FolderService {
                 .replace('S A.', 'SA')
                 .replace('LTDA.', 'LTDA')
             return razaoSocial
+        }
+    }
+
+    private static getSubFolder(metadata: Partial<FileMetadata>): string {
+        const { fieldName, placa } = metadata
+
+        if (placa)
+            return `\\Veículos\\${placa}`
+
+        switch (fieldName) {
+            case 'procuracao':
+                return 'Procurações'
+            case 'contratoSocial':
+                return 'Contrato Social'
+            case 'apoliceDoc':
+                return 'Apólices'
+            case 'altContratoDoc':
+                return 'Alterações de contrato social'
+            case 'crc':
+                return 'CRC'
+            default: return ''
         }
     }
 }

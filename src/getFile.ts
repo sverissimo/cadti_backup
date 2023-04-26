@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import http from 'http'
 import { FileEntity } from "./entities/FileEntity";
-import { IMetadata } from './entities/IFileMetadata'
+import { FileMetadata } from './entities/FileMetadata'
 
 if (!process.env.AUTH)
     dotenv.config()
@@ -29,7 +29,7 @@ const run = async () => {
                 }
             })
             , file: FileEntity = reqMetadata.data
-            , metadata: IMetadata = file.metadata
+            , metadata: FileMetadata = file.metadata
             , { filename } = file
 
         console.log(file)

@@ -10,20 +10,14 @@ if (!client) {
     client = webSocketClient(`${env.WEBSOCKET_HOST}/`, { extraHeaders: { 'Authorization': env.AUTH } })
 }
 
-
 client.on('connect', () => {
     console.log('#### CadTI file backup started!! ####')
     const user = { role: 'backupService', token: env.BACKUP_TOKEN }
-
     client.emit('userDetails', user)
 })
 
-client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
-    fileService.saveTempFile({ files, fields })
-    console.log('written.', { files, fields })
-})
-
-client.on('permanentBackup', (files: Partial<FileEntity>[]) => {
+client.on('newFileSaved', (files: Partial<FileEntity>[]) => {
+    console.log("🚀 ~ file: fileClient.ts:20 ~ client.on ~ files:", files)
     fileService.saveFilesByID(files)
     console.log('stored. n:', files.length)
 })
