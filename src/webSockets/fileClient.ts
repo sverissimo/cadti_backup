@@ -13,18 +13,19 @@ if (!client) {
 
 client.on('connect', () => {
     console.log('#### CadTI file backup started!! ####')
-    //REFACTOR: ADD env.secret_key???
-    client.emit('userDetails', 'backupService')
+    const user = { role: 'backupService', token: env.BACKUP_TOKEN }
+
+    client.emit('userDetails', user)
 })
 
-/* client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
+client.on('fileBackup', ({ files, fields }: { files: Array<string>, fields: any }) => {
     fileService.saveTempFile({ files, fields })
-    console.log('written.')
-}) */
+    console.log('written.', { files, fields })
+})
 
 client.on('permanentBackup', (files: Partial<FileEntity>[]) => {
     fileService.saveFilesByID(files)
-    console.log('stored.')
+    console.log('stored. n:', files.length)
 })
 
 client.on('error', err => console.error(err))

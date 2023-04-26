@@ -11,6 +11,7 @@ const keys = [
     'WEBSOCKET_HOST',
     'BACKUP_FOLDER',
     'BACKUP_FOLDER_LOCAL',
+    'BACKUP_TOKEN',
 ]
 
 interface Environment {
@@ -20,6 +21,7 @@ interface Environment {
     WEBSOCKET_HOST: string
     BACKUP_FOLDER: string
     BACKUP_FOLDER_LOCAL: string
+    BACKUP_TOKEN: string
 }
 
 export const env: Environment = keys

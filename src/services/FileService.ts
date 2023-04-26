@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { FileEntity } from '../entities/FileEntity'
 import { FileRepository } from '../repositories/FilesRepository'
 import { FileFactory } from '../utils/FilesFactory'
@@ -18,6 +19,13 @@ class FileService {
 
             new FileRepository().getDataFromDBAndSave({ id, localFolder, networkFolder, filename, collection })
         }
+    }
+
+    saveTempFile({ files, fields }: { files: Array<string>, fields: any }) {
+        const b1 = Buffer.from(files[0], 'base64')
+        fs.writeFileSync('tst0001.txt', b1)
+        /* for (const f of files) {
+        } */
     }
 }
 
