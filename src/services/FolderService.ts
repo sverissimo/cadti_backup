@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { env } from '../config/env';
-import { FileMetadata } from '../entities/FileMetadata';
+import { FileMetadata } from '../interfaces/FileMetadata';
 
 type FolderNames = {
     localFolder: string
@@ -35,6 +35,7 @@ export class FolderService {
                 .replace('S.A.', 'SA')
                 .replace('S/A.', 'SA')
                 .replace('S A.', 'SA')
+                .replace('S A', 'SA')
                 .replace('LTDA.', 'LTDA')
             return razaoSocial
         }

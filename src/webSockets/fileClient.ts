@@ -1,6 +1,6 @@
 import webSocketClient from 'socket.io-client'
 import { FileService } from '../services/FileService'
-import { FileEntity } from '../entities/FileEntity'
+import { File } from '../interfaces/File'
 import { env } from '../config/env'
 
 const fileService = new FileService
@@ -16,7 +16,7 @@ client.on('connect', () => {
     client.emit('userDetails', user)
 })
 
-client.on('newFileSaved', (files: Partial<FileEntity>[]) => {
+client.on('newFileSaved', (files: Partial<File>[]) => {
     console.log("🚀 ~ file: fileClient.ts:20 ~ client.on ~ files:", files)
     fileService.saveFilesByID(files)
     console.log('stored. n:', files.length)

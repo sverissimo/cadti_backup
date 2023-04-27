@@ -1,44 +1,44 @@
 import fs from 'fs'
 import path from 'path'
-import { FileEntity } from '../entities/FileEntity'
-import { FileRepository } from '../repositories/FilesRepository'
+import { api } from '../api'
+import { File } from '../interfaces/File'
 import { FolderService } from './FolderService'
 
 class FileService {
-
-    saveFilesByID(files: Partial<FileEntity>[]) {
+    saveFilesByID(files: Partial<File>[]) {
         for (const f of files) {
             const { id, filename, metadata } = f
-            const { placa } = metadata
-            const collection: string = placa ? 'vehicleDocs' : 'empresaDocs'
+            const { veiculoId } = metadata
+            const collection: string = veiculoId ? 'vehicleDocs' : 'empresaDocs'
             const { localFolder, networkFolder } = FolderService.getFolderName(metadata)
 
             FolderService.createFolders(localFolder, networkFolder)
             const localPath = this.renameIfExists(`${localFolder}\\${filename}`)
             const networkPath = this.renameIfExists(`${networkFolder}\\${filename}`)
 
-            new FileRepository().getDataFromDBAndSave({ id, localPath, networkPath, collection })
+            const result = api.downloadAndSave({ id, collection, localPath, networkPath })
+            return result
         }
     }
 
     renameIfExists(filePath, count = 0): string {
-        const directory = path.dirname(filePath);
-        const extension = path.extname(filePath);
-        const baseName = path.basename(filePath, extension);
+        const directory = path.dirname(filePath)
+        const extension = path.extname(filePath)
+        const baseName = path.basename(filePath, extension)
+        let suffix = ''
 
-        let suffix = '';
         if (count > 0) {
-            suffix = `_${count}`;
+            suffix = `_${count}`
         }
-        const availableFilePath = path.join(directory, `${baseName}${suffix}${extension}`);
+
+        const availableFilePath = path.join(directory, `${baseName}${suffix}${extension}`)
 
         if (fs.existsSync(availableFilePath)) {
-            return this.renameIfExists(filePath, count + 1);
+            return this.renameIfExists(filePath, count + 1)
         }
 
-        return availableFilePath;
+        return availableFilePath
     }
 }
-
 
 export { FileService }

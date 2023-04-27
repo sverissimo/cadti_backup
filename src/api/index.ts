@@ -2,6 +2,7 @@ import fs from 'fs'
 import https from 'https'
 import http from 'http'
 import { env } from '../config/env'
+import { SaveFileInfo } from '../interfaces/SaveFileInfo'
 
 let protocol: any = https
 if (env.NODE_ENV !== 'production') {
@@ -21,7 +22,7 @@ const defaultOptions = {
     }
 }
 
-export const saveFile = (options) => {
+const downloadAndSave = (options: SaveFileInfo) => {
     const { id, collection, localPath, networkPath } = options
     const path = `${baseUrl}?id=${id}&collection=${collection}`
     const requestOptions = { ...defaultOptions, path }
@@ -41,3 +42,5 @@ export const saveFile = (options) => {
         console.log("🚀 ~ file: index.ts:31 ~ saveFile ~ err:", err)
     }
 }
+
+export const api = { downloadAndSave }

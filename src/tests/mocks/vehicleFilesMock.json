@@ -1,0 +1,30 @@
+[
+    {
+        "id": "60afee100002b60e08564b9d",
+        "length": 13417,
+        "chunkSize": 261120,
+        "uploadDate": "2021-05-27T19:08:00.382+0000",
+        "filename": "Demandas pendentes 02mar21 pós reunião (1) (1).xlsx",
+        "md5": "22277e3e1876b838e5657c42f45af64a",
+        "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "metadata": {
+            "veiculoId": 3644,
+            "tempFile": false,
+            "fieldName": "pesagem"
+        }
+    },
+    {
+        "id": "60afee100002b60e08564b9e",
+        "length": 11381,
+        "chunkSize": 261120,
+        "uploadDate": "2021-05-27T19:08:00.382+0000",
+        "filename": "TESTE.docx",
+        "md5": "c18faf1bdee9dec114a8e19b37841d66",
+        "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "metadata": {
+            "veiculoId": 3644,
+            "tempFile": false,
+            "fieldName": "nfCarroceria"
+        }
+    }
+]

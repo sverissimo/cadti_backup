@@ -1,7 +1,7 @@
 export interface FileMetadata {
     fieldName: string;
-    empresaId: number;
     tempFile: boolean;
+    empresaId?: number;
     razaoSocial?: string;
     veiculoId?: number;
     placa?: string;

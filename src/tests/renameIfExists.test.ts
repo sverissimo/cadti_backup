@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { FileMetadata } from '../entities/FileMetadata'
+import { FileMetadata } from '../interfaces/FileMetadata'
 import { FileService } from '../services/FileService'
 import { fileMock } from './mocks/fileMock'
 import { env } from '../config/env'

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "file": "ts-node-dev src/testFileService.ts",
-    "test": "ts-node-dev src/tests/renameIfExists.test.ts"
+    "test": "ts-node-dev src/tests/saveFilesByID.test.ts"
   },
   "dependencies": {
     "axios": "^0.21.1",

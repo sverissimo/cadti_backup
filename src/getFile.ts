@@ -2,8 +2,8 @@ import axios from "axios";
 import dotenv from 'dotenv'
 import fs from 'fs'
 import http from 'http'
-import { FileEntity } from "./entities/FileEntity";
-import { FileMetadata } from './entities/FileMetadata'
+import { FileMetadata } from './interfaces/FileMetadata'
+import { File } from './interfaces/File'
 
 if (!process.env.AUTH)
     dotenv.config()
@@ -28,7 +28,7 @@ const run = async () => {
                     Authorization: process.env.AUTH
                 }
             })
-            , file: FileEntity = reqMetadata.data
+            , file: File = reqMetadata.data
             , metadata: FileMetadata = file.metadata
             , { filename } = file
 
