@@ -6,19 +6,21 @@ import { FolderService } from './FolderService'
 
 class FileService {
     saveFilesByID(files: Partial<File>[]) {
-        for (const f of files) {
-            const { id, filename, metadata } = f
-            const { veiculoId } = metadata
-            const collection: string = veiculoId ? 'vehicleDocs' : 'empresaDocs'
-            const { localFolder, networkFolder } = FolderService.getFolderName(metadata)
+        const { metadata } = files[0]
+        const { veiculoId } = metadata
+        const collection: string = veiculoId ? 'vehicleDocs' : 'empresaDocs'
+        const { localFolder, networkFolder } = FolderService.getFolderName(metadata)
 
-            FolderService.createFolders(localFolder, networkFolder)
+        FolderService.createFolders(localFolder, networkFolder)
+
+        for (const file of files) {
+            const { filename, id, _id } = file
             const localPath = this.renameIfExists(`${localFolder}\\${filename}`)
             const networkPath = this.renameIfExists(`${networkFolder}\\${filename}`)
 
-            const result = api.downloadAndSave({ id, collection, localPath, networkPath })
-            return result
+            api.downloadAndSave({ id: id || _id, collection, localPath, networkPath })
         }
+        return `### ${files.length} files saved.`
     }
 
     renameIfExists(filePath, count = 0): string {

@@ -18,8 +18,8 @@ client.on('connect', () => {
 
 client.on('newFileSaved', (files: Partial<File>[]) => {
     console.log("🚀 ~ file: fileClient.ts:20 ~ client.on ~ files:", files)
-    fileService.saveFilesByID(files)
-    console.log('stored. n:', files.length)
+    const result = fileService.saveFilesByID(files)
+    console.log("🚀 ~ file: fileClient.ts:22 ~ client.on ~ result:", result)
 })
 
 client.on('error', err => console.error(err))

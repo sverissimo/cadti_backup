@@ -10,12 +10,12 @@ if (env.NODE_ENV !== 'production') {
 }
 //const id = "60ac47987ef35a18248e57c1"
 const id = "60d27c962f32a212dccaf830"
-const baseUrl = `/api/mongoDownload`
+const baseUrl = `/api/download`
 const port = env.NODE_ENV !== 'production' ? 3001 : undefined
 
 const defaultOptions = {
     host: env.HOST,
-    path: `/api/mongoDownload?id=${id}&collection=empresaDocs`,
+    path: `${baseUrl}?id=${id}&collection=empresaDocs`,
     port,
     headers: {
         Authorization: env.AUTH
