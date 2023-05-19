@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "file": "ts-node-dev src/testFileService.ts",
-    "test": "ts-node-dev src/tests/saveFilesByID.test.ts"
+    "test": "ts-node-dev src/tests/getFolderName.test.ts",
+    "build": "cp .env ./build/.env && tsc"
   },
   "dependencies": {
     "axios": "^0.21.1",

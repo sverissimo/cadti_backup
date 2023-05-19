@@ -8,3 +8,7 @@ node_modules
 *.xlsx
 *.csv
 package-lock.json
+ecosystem.config.js
+build**
+dist
+/**/tests/old

@@ -25,18 +25,22 @@ export class FolderService {
                 fs.mkdirSync(folder, { recursive: true })
             }
         }
-        return
     }
 
     static sanitize(razaoSocialRaw: any) {
-        if (razaoSocialRaw) {
+        if (typeof razaoSocialRaw === 'string') {
+            const forbiddenChars = ['/', '\\', ':', '|', '$', '>', '<', '"', '?', '*', '\'', '{', '}', '+', '`', '=', '!', '%']
+            forbiddenChars.forEach(c => razaoSocialRaw = razaoSocialRaw.replace(c, '',))
+
             const razaoSocial = razaoSocialRaw
                 .replace('\/', ' ')
                 .replace('S.A.', 'SA')
                 .replace('S/A.', 'SA')
+                .replace('S/A', 'SA')
                 .replace('S A.', 'SA')
                 .replace('S A', 'SA')
                 .replace('LTDA.', 'LTDA')
+                .trim()
             return razaoSocial
         }
     }
